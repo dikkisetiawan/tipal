@@ -21,8 +21,8 @@ class _HomePageState extends State<HomePage> {
   late List<Schedule> listSchedule;
 
   Future<List<Harbour>> fetchHarbour() async {
-    final response = await http
-        .get(Uri.parse('https://www.vrsltz.com/tipal_api/api_get_harbor.php'));
+    final response = await http.get(
+        Uri.parse('https://tipalfais.000webhostapp.com/api_get_harbor.php'));
 
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
@@ -35,9 +35,10 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<Schedule>> fetchSchedule(String from, String to) async {
     final response = await http.get(Uri.parse(
-        'https://vrsltz.com/tipal_api/api_get_schedule.php?harbor_from=${from}&harbor_to=${to}'));
+        'https://tipalfais.000webhostapp.com/api_get_schedule.php?harbor_from=${from}&harbor_to=${to}'));
 
     if (response.statusCode == 200) {
+      print('get');
       var decodedResponse = jsonDecode(response.body);
       print(decodedResponse);
       return (decodedResponse as List)
@@ -147,11 +148,11 @@ class _HomePageState extends State<HomePage> {
                                   primary: Color.fromRGBO(253, 198, 32, 1)),
                               onPressed: () {
                                 fetchSchedule(fromStation, toStation)
-                                    .then((value){
-                                      setState(() {
-                                        listSchedule = value;
-                                      });
-                                    });
+                                    .then((value) {
+                                  setState(() {
+                                    listSchedule = value;
+                                  });
+                                });
                               },
                               child: Text("Search"),
                             ),
@@ -169,8 +170,9 @@ class _HomePageState extends State<HomePage> {
                     Padding(padding: EdgeInsets.only(top: 16)),
                     Expanded(
                       child: ListView(
-                        children:
-                            listSchedule.map((e) => ScheduleItem(schedule: e)).toList(),
+                        children: listSchedule
+                            .map((e) => ScheduleItem(schedule: e))
+                            .toList(),
                       ),
                     )
                   ],

@@ -23,7 +23,7 @@ class _ReservationPageState extends State<ReservationPage> {
 
   Future<http.Response> placeOrder() {
     return http.post(
-      Uri.parse('https://vrsltz.com/tipal_api/api_post_order.php'),
+      Uri.parse('https://tipalfais.000webhostapp.com/api_post_order.php'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
