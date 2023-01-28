@@ -53,6 +53,13 @@ class SearchResultPage extends StatelessWidget {
         future: ScheduleServices.fetchSchedule(fromStation, toStation),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            if (snapshot.data!.isEmpty) {
+              return const Center(
+                  child: Text(
+                'No Schedule Found',
+                style: blackTextStyle,
+              ));
+            }
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding:
