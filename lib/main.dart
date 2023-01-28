@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/main_page.dart';
-import 'package:tipal/pages/home_page.dart';
-import 'package:tipal/pages/login_page.dart';
+import 'package:tipal/view/pages/home_page.dart';
+import 'package:tipal/view/pages/login_page.dart';
 import 'package:tipal/services/auth_services.dart';
+import 'package:tipal/view/pages/search_result_page.dart';
+
+import 'view/pages/my_tickets_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
-      home: const HomePage(),
+      home: SearchResultPage(),
     );
   }
 }

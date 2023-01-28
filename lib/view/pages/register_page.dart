@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
+import 'package:tipal/view/pages/home_page.dart';
 
-import '../view/widgets/kelevated_button_widget.dart';
-import '../view/widgets/ktext_form_field_widget.dart';
+import '../widgets/kelevated_button_widget.dart';
+import '../widgets/ktext_form_field_widget.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class LoginPage extends StatelessWidget {
                     )),
                     const SizedBox(height: defaultMargin),
                     const Text(
-                      'Sign In',
+                      'Sign Up',
                       style: titleTextStyle,
                     ),
                     const SizedBox(height: defaultMargin),
@@ -66,7 +67,15 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: defaultMargin / 2),
                     const KtextFormFieldWidget(),
                     const SizedBox(height: defaultMargin),
-                    const KelevatedButtonWidget(title: 'Sign In'),
+                    KelevatedButtonWidget(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        },
+                        title: 'Sign Up'),
                     const SizedBox(height: defaultMargin / 2),
                     Center(
                       child: TextButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/models/Schedule.dart';
-import 'package:tipal/pages/reservation_page.dart';
+import 'package:tipal/view/pages/reservation_page.dart';
 import 'package:intl/intl.dart';
 
 class ScheduleItem extends StatefulWidget {
@@ -44,9 +44,15 @@ class _ScheduleItemState extends State<ScheduleItem> {
               ],
             ),
           ),
-          ElevatedButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ReservationPage(scheduleId:this.schedule.scheduleId)));
-          }, child: Text("Choose"))
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ReservationPage(
+                            scheduleId: this.schedule.scheduleId)));
+              },
+              child: Text("Choose"))
         ],
       ),
     );

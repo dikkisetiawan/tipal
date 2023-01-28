@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 import 'package:tipal/view/widgets/kdropdown_widget.dart';
 
-import '../view/widgets/kelevated_button_widget.dart';
+import '../widgets/kelevated_button_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
         Column(
           children: [
             Expanded(
+              flex: 7,
               child: Container(
                 decoration: const BoxDecoration(
                   color: kPrimaryColor,
@@ -25,6 +26,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Expanded(
+              flex: 5,
               child: Container(
                 decoration: const BoxDecoration(color: kWhiteColor),
               ),

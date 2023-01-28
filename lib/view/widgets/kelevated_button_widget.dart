@@ -4,10 +4,12 @@ import '../../theme.dart';
 
 class KelevatedButtonWidget extends StatelessWidget {
   final String title;
+  final void Function()? onPressed;
 
   const KelevatedButtonWidget({
     Key? key,
     required this.title,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -16,7 +18,7 @@ class KelevatedButtonWidget extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             minimumSize: const Size.fromHeight(56),
             backgroundColor: kSecondaryColor),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(title, style: whiteTextStyle));
   }
 }

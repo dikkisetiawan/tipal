@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tipal/pages/home_page_old.dart';
-import 'package:tipal/pages/tickets_page.dart';
+import 'package:tipal/view/pages/home_page_old.dart';
+import 'package:tipal/view/pages/tickets_page.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
