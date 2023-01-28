@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 
+import '../view/widgets/kelevated_button_widget.dart';
 import '../view/widgets/ktext_form_field_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -65,7 +66,32 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: defaultMargin / 2),
                     const KtextFormFieldWidget(),
                     const SizedBox(height: defaultMargin),
-                    ElevatedButton(style: ButtonStyle.styleFrom(minimumSize: ),onPressed: () {}, child: Text('juf'))
+                    const KelevatedButtonWidget(title: 'Sign In'),
+                    const SizedBox(height: defaultMargin / 2),
+                    Center(
+                      child: TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            'Forgot Password?',
+                            style: buttonTextStyle,
+                          )),
+                    ),
+                    const SizedBox(height: defaultMargin / 2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Don’t have account yet?',
+                          style: greyTextStyle,
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'Sign Up',
+                              style: buttonTextStyle,
+                            ))
+                      ],
+                    )
                   ],
                 ),
               ),

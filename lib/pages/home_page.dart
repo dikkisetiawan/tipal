@@ -1,189 +1,165 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
-
 import 'package:flutter/material.dart';
-import 'package:tipal/items/schedule_item.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:tipal/models/Harbour.dart';
-import 'package:tipal/models/Schedule.dart';
+import 'package:tipal/theme.dart';
+import 'package:tipal/view/widgets/kdropdown_widget.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+import '../view/widgets/kelevated_button_widget.dart';
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late String fromStation;
-  late String toStation;
-  late Future<List<Harbour>> listHarbour;
-  late List<Schedule> listSchedule;
-
-  Future<List<Harbour>> fetchHarbour() async {
-    final response = await http.get(
-        Uri.parse('https://tipalfais.000webhostapp.com/api_get_harbor.php'));
-
-    if (response.statusCode == 200) {
-      var decodedResponse = jsonDecode(response.body);
-      print(decodedResponse);
-      return (decodedResponse as List).map((e) => Harbour.fromJson(e)).toList();
-    } else {
-      throw Exception('Failed to load harbour');
-    }
-  }
-
-  Future<List<Schedule>> fetchSchedule(String from, String to) async {
-    final response = await http.get(Uri.parse(
-        'https://tipalfais.000webhostapp.com/api_get_schedule.php?harbor_from=${from}&harbor_to=${to}'));
-
-    if (response.statusCode == 200) {
-      print('get');
-      var decodedResponse = jsonDecode(response.body);
-      print(decodedResponse);
-      return (decodedResponse as List)
-          .map((e) => Schedule.fromJson(e))
-          .toList();
-    } else {
-      throw Exception('Failed to load schedule');
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    listHarbour = fetchHarbour();
-    listSchedule = <Schedule>[];
-    fromStation = "";
-    toStation = "";
-  }
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-          child: FutureBuilder<List<Harbour>>(
-        future: listHarbour,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              decoration:
-                  const BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+    return Scaffold(
+      body: Stack(children: [
+        Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: kPrimaryColor,
+                  image: DecorationImage(
+                      alignment: Alignment.bottomCenter,
+                      image: AssetImage('assets/Pattern.png'),
+                      fit: BoxFit.fitWidth),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(color: kWhiteColor),
+              ),
+            )
+          ],
+        ),
+        ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: defaultMargin,
+                  right: defaultMargin,
+                  top: defaultMargin,
+                  bottom: defaultMargin * 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Where do you \nwanna go?',
+                    style: titleTextStyle.copyWith(
+                        color: kWhiteColor, fontSize: 20),
+                  ),
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                        color: kWhiteColor.withOpacity(0.2),
+                        shape: BoxShape.circle),
+                    child: const Icon(
+                      Icons.navigation,
+                      color: kWhiteColor,
+                      size: 24,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: KdropdownWidget(),
+            ),
+            const SizedBox(height: defaultMargin),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: KdropdownWidget(),
+            ),
+            Card(
+              margin: const EdgeInsets.all(defaultMargin),
+              elevation: 10,
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(defaultMargin / 4))),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(defaultMargin),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        const Text("Where do you \nwant to go?",
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold)),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Image.asset('assets/images/user_icon.png'),
-                        ),
-                      ],
+                    Text(
+                      'Passenger',
+                      style: titleTextStyle.copyWith(fontSize: 14),
                     ),
-                    const Padding(padding: EdgeInsets.only(top: 24)),
-                    Container(
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "From : ",
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                              width: double.infinity,
-                              child: DropdownButton(
-                                  value: fromStation.isNotEmpty
-                                      ? fromStation
-                                      : null,
-                                  isExpanded: true,
-                                  items: snapshot.data!
-                                      .map((e) => DropdownMenuItem(
-                                            child: Text(e.harborName),
-                                            value: e.harborId,
-                                          ))
-                                      .toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      print(value);
-                                      fromStation = value.toString();
-                                    });
-                                  })),
-                          Padding(padding: EdgeInsets.only(top: 16)),
-                          Text(
-                            "To : ",
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                              width: double.infinity,
-                              child: DropdownButton(
-                                  value:
-                                      toStation.isNotEmpty ? toStation : null,
-                                  isExpanded: true,
-                                  items: snapshot.data!
-                                      .map((e) => DropdownMenuItem(
-                                            child: Text(e.harborName),
-                                            value: e.harborId,
-                                          ))
-                                      .toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      print(value);
-                                      toStation = value.toString();
-                                    });
-                                  })),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color.fromRGBO(253, 198, 32, 1)),
-                              onPressed: () {
-                                fetchSchedule(fromStation, toStation)
-                                    .then((value) {
-                                  setState(() {
-                                    listSchedule = value;
-                                  });
-                                });
-                              },
-                              child: Text("Search"),
-                            ),
-                          )
-                        ],
-                      ),
+                    const SizedBox(
+                      height: defaultMargin,
                     ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("Available tickets :",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
+                    counterRowWidget(),
+                    const SizedBox(
+                      height: defaultMargin / 2,
                     ),
-                    Padding(padding: EdgeInsets.only(top: 16)),
-                    Expanded(
-                      child: ListView(
-                        children: listSchedule
-                            .map((e) => ScheduleItem(schedule: e))
-                            .toList(),
-                      ),
-                    )
+                    counterRowWidget()
                   ],
                 ),
               ),
-            );
-          } else if (snapshot.hasError) {}
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: KelevatedButtonWidget(title: 'Search'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: Text(
+                'Quick Trip',
+                style: titleTextStyle.copyWith(fontSize: 18, color: kGreyColor),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+  }
 
-          return CircularProgressIndicator();
-        },
-      )),
+  Row counterRowWidget() {
+    return Row(
+      children: [
+        const Icon(
+          Icons.person,
+          color: kSecondaryColor,
+        ),
+        const Spacer(),
+        Text(
+          'Passenger',
+          style: titleTextStyle.copyWith(fontSize: 14),
+        ),
+        const Spacer(
+          flex: 7,
+        ),
+        customButtonWidget(),
+        const Spacer(),
+        Text(
+          '0',
+          style: titleTextStyle.copyWith(fontSize: 14),
+        ),
+        const Spacer(),
+        customButtonWidget(),
+      ],
+    );
+  }
+
+  Widget customButtonWidget() {
+    return InkWell(
+      onTap: () {},
+      highlightColor: kPrimaryColor,
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        width: 24,
+        height: 24,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(const Radius.circular(8)),
+            color: Colors.transparent,
+            border: Border.all(color: kSecondaryColor)),
+        child: const Center(
+            child: Text(
+          '-',
+          style: TextStyle(color: kSecondaryColor),
+        )),
+      ),
     );
   }
 }
