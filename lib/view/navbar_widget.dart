@@ -16,7 +16,6 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   final List<Widget> _pages = <Widget>[
     const HomePage(),
     const MyTicketsPage(),
-    const MyTicketsPage(),
     LoginPage()
   ];
 
@@ -37,10 +36,6 @@ class _NavBarWidgetState extends State<NavBarWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.airplane_ticket),
-            label: 'Tiket',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.airplane_ticket),
