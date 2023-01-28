@@ -68,9 +68,11 @@ class LoginPage extends StatelessWidget {
                       style: titleTextStyle,
                     ),
                     const SizedBox(height: defaultMargin),
-                    KtextFormFieldWidget(controller: userNameTextController),
+                    KtextFormFieldWidget(
+                        title: 'Username', controller: userNameTextController),
                     const SizedBox(height: defaultMargin / 2),
-                    KtextFormFieldWidget(controller: passwordTextController),
+                    KtextFormFieldWidget(
+                        title: 'Password', controller: passwordTextController),
                     const SizedBox(height: defaultMargin),
                     KelevatedButtonWidget(
                         onPressed: () {

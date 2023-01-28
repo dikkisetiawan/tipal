@@ -1,88 +1,94 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:tipal/view/widgets/adult_child_widget.dart';
 
-class ReservationPageOld extends StatefulWidget {
-  String scheduleId;
-  ReservationPageOld({Key? key, required this.scheduleId}) : super(key: key);
+import '../../theme.dart';
+import '../widgets/ktext_form_field_widget.dart';
+
+class ReservationPage extends StatefulWidget {
+  final String scheduleId;
+
+  ReservationPage({Key? key, required this.scheduleId}) : super(key: key);
 
   @override
-  _ReservationPageOldState createState() =>
-      _ReservationPageOldState(this.scheduleId);
+  State<ReservationPage> createState() => _ReservationPageState();
 }
 
-class _ReservationPageOldState extends State<ReservationPageOld> {
-  String scheduleId;
-  final nameTextController = TextEditingController();
-  final childTextController = TextEditingController();
-  final adultTextController = TextEditingController();
-
+class _ReservationPageState extends State<ReservationPage> {
+  final fullNameTextController = TextEditingController();
   String seats = "";
-
-  _ReservationPageOldState(this.scheduleId);
-
-  Future<http.Response> placeOrder() {
-    return http.post(
-      Uri.parse('https://tipalfais.000webhostapp.com/api_post_order.php'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'schedule_id': this.scheduleId,
-        'username': nameTextController.text,
-        'qty_adult': adultTextController.text,
-        'qty_child': childTextController.text,
-        'seat': seats
-      }),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(children: [
+      Column(
         children: [
-          Text(
-            "Please fill required data below :",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+          Expanded(
+            flex: 7,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: kPrimaryColor,
+                image: DecorationImage(
+                    alignment: Alignment.bottomCenter,
+                    image: AssetImage('assets/Pattern.png'),
+                    fit: BoxFit.fitWidth),
+              ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 16),
+          Expanded(
+            flex: 5,
+            child: Container(
+              decoration: const BoxDecoration(color: kWhiteColor),
+            ),
+          )
+        ],
+      ),
+      ListView(
+        padding: const EdgeInsets.all(defaultMargin),
+        physics: const BouncingScrollPhysics(),
+        children: [
+          const SizedBox(height: defaultMargin * 2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Reservation form',
+                style:
+                    titleTextStyle.copyWith(color: kWhiteColor, fontSize: 20),
+              ),
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                    color: kWhiteColor.withOpacity(0.2),
+                    shape: BoxShape.circle),
+                child: const Icon(
+                  Icons.document_scanner,
+                  color: kWhiteColor,
+                  size: 24,
+                ),
+              ),
+            ],
           ),
-          TextFormField(
-            controller: nameTextController,
-            decoration: const InputDecoration(
-                labelText: "Name", border: OutlineInputBorder()),
+          const SizedBox(
+            height: defaultMargin * 2,
           ),
-          Padding(padding: EdgeInsets.only(top: 8)),
-          TextFormField(
-            controller: adultTextController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                labelText: "Adult", border: OutlineInputBorder()),
+          KtextFormFieldWidget(
+              title: 'Full Name', controller: fullNameTextController),
+          const SizedBox(
+            height: defaultMargin,
           ),
-          Padding(padding: EdgeInsets.only(top: 8)),
-          TextFormField(
-            controller: childTextController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                labelText: "Child", border: OutlineInputBorder()),
-          ),
-          Padding(padding: EdgeInsets.only(top: 8)),
           SizedBox(
               width: double.infinity,
               child: DropdownButtonFormField(
                   value: seats.isNotEmpty ? seats : null,
                   decoration: const InputDecoration(
-                      labelText: "Seat", border: OutlineInputBorder()),
+                      hintText: 'Select Seat',
+                      filled: true,
+                      fillColor: kWhiteColor,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(width: 1, color: kGreyColor))),
                   isExpanded: true,
                   items: <String>[
                     'A1',
@@ -111,24 +117,10 @@ class _ReservationPageOldState extends State<ReservationPageOld> {
                       seats = value.toString();
                     });
                   })),
-          Padding(padding: EdgeInsets.only(top: 8)),
-          SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () {
-                    placeOrder().then((value) {
-                      if (value.statusCode == 200) {
-                        Navigator.pop(context);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Gagal, Ada Kesalahan"),
-                        ));
-                      }
-                    });
-                  },
-                  child: Text("Reserved")))
+          const SizedBox(height: defaultMargin),
+          const AdultChildWidget()
         ],
-      ),
-    )));
+      )
+    ]));
   }
 }

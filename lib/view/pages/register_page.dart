@@ -69,10 +69,12 @@ class RegisterPage extends StatelessWidget {
                     ),
                     const SizedBox(height: defaultMargin),
                     KtextFormFieldWidget(
+                      title: 'Username',
                       controller: userNameTextController,
                     ),
                     const SizedBox(height: defaultMargin / 2),
                     KtextFormFieldWidget(
+                      title: 'Password',
                       controller: passwordTextController,
                     ),
                     const SizedBox(height: defaultMargin),

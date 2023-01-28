@@ -4,6 +4,7 @@ import 'package:tipal/theme.dart';
 import '../../models/Schedule.dart';
 import '../../services/schedule_services.dart';
 import '../widgets/kchoice_chip_widget.dart';
+import 'reservation_page.dart';
 
 class SearchResultPage extends StatelessWidget {
   final String fromStation;
@@ -59,7 +60,13 @@ class SearchResultPage extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ReservationPage(
+                                scheduleId: snapshot.data![index].scheduleId)));
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(top: defaultMargin / 2),
                     padding: const EdgeInsets.all(defaultMargin / 2),

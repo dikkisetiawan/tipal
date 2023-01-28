@@ -5,6 +5,7 @@ import 'package:tipal/view/widgets/kdropdown_widget.dart';
 import '../../models/Harbour.dart';
 import '../../models/Schedule.dart';
 import '../../services/schedule_services.dart';
+import '../widgets/adult_child_widget.dart';
 import '../widgets/kelevated_button_widget.dart';
 import 'search_result_page.dart';
 
@@ -120,32 +121,9 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-                  Card(
-                    margin: const EdgeInsets.all(defaultMargin),
-                    elevation: 10,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(defaultMargin / 4))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(defaultMargin),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Passenger',
-                            style: titleTextStyle.copyWith(fontSize: 14),
-                          ),
-                          const SizedBox(
-                            height: defaultMargin,
-                          ),
-                          counterRowWidget(),
-                          const SizedBox(
-                            height: defaultMargin / 2,
-                          ),
-                          counterRowWidget()
-                        ],
-                      ),
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.all(defaultMargin),
+                    child: AdultChildWidget(),
                   ),
                   Padding(
                     padding:
@@ -248,54 +226,6 @@ class _HomePageState extends State<HomePage> {
           },
         )
       ]),
-    );
-  }
-
-  Row counterRowWidget() {
-    return Row(
-      children: [
-        const Icon(
-          Icons.person,
-          color: kSecondaryColor,
-        ),
-        const Spacer(),
-        Text(
-          'Passenger',
-          style: titleTextStyle.copyWith(fontSize: 14),
-        ),
-        const Spacer(
-          flex: 7,
-        ),
-        customButtonWidget(),
-        const Spacer(),
-        Text(
-          '0',
-          style: titleTextStyle.copyWith(fontSize: 14),
-        ),
-        const Spacer(),
-        customButtonWidget(),
-      ],
-    );
-  }
-
-  Widget customButtonWidget() {
-    return InkWell(
-      onTap: () {},
-      highlightColor: kPrimaryColor,
-      child: Container(
-        clipBehavior: Clip.hardEdge,
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(const Radius.circular(8)),
-            color: Colors.transparent,
-            border: Border.all(color: kSecondaryColor)),
-        child: const Center(
-            child: Text(
-          '-',
-          style: TextStyle(color: kSecondaryColor),
-        )),
-      ),
     );
   }
 }

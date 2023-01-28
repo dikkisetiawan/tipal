@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/models/Schedule.dart';
-import 'package:tipal/view/pages/reservation_page.dart';
+import 'package:tipal/view/pages/reservation_page_old.dart';
 import 'package:intl/intl.dart';
 
 class ScheduleItem extends StatefulWidget {
