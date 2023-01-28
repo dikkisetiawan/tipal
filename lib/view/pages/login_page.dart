@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tipal/services/auth_services.dart';
-import 'package:tipal/theme.dart';
+import 'package:tipal/view/theme.dart';
 import 'package:tipal/view/navbar_widget.dart';
 import 'package:tipal/view/pages/home_page.dart';
 import 'package:tipal/view/pages/register_page.dart';

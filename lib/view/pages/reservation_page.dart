@@ -4,7 +4,7 @@ import 'package:tipal/view/widgets/adult_child_widget.dart';
 import 'package:tipal/view/widgets/kelevated_button_widget.dart';
 
 import '../../services/schedule_services.dart';
-import '../../theme.dart';
+import '../theme.dart';
 import '../widgets/ktext_form_field_widget.dart';
 
 class ReservationPage extends StatefulWidget {

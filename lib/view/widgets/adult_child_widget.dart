@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme.dart';
+import '../theme.dart';
 
 int countAdult = 0;
 int countChild = 0;

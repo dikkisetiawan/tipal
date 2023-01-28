@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tipal/theme.dart';
+import 'package:tipal/view/theme.dart';
 import 'package:tipal/view/pages/home_page.dart';
 import 'package:tipal/view/pages/login_page.dart';
 import 'package:tipal/view/pages/my_tickets_page.dart';
