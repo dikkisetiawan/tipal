@@ -79,21 +79,30 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: defaultMargin),
                     KelevatedButtonWidget(
                         onPressed: () {
-                          AuthServices.login(
-                                  username: userNameTextController.text,
-                                  password: passwordTextController.text)
-                              .then((value) {
-                            return Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const NavBarWidget()));
-                          }).onError((error, stackTrace) =>
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text('Error: $error'),
-                                    backgroundColor: Colors.red.shade300,
-                                  )));
+                          if (userNameTextController.text.isNotEmpty ||
+                              passwordTextController.text.isNotEmpty) {
+                            AuthServices.login(
+                                    username: userNameTextController.text,
+                                    password: passwordTextController.text)
+                                .then((value) {
+                              return Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavBarWidget()));
+                            }).onError((error, stackTrace) =>
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text('Error: $error'),
+                                      backgroundColor: Colors.red.shade300,
+                                    )));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: const Text(
+                                  'Username/Password tidak boleh kosong'),
+                              backgroundColor: Colors.red.shade300,
+                            ));
+                          }
                         },
                         title: 'Sign In'),
                     const SizedBox(height: defaultMargin / 2),
