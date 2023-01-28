@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:tipal/view/pages/login_page.dart';
+import 'package:tipal/view/pages/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
-      home: LoginPage(),
+      home: const SplashPage(),
     );
   }
 }
