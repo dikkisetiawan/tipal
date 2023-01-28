@@ -1,16 +1,14 @@
-import 'dart:convert';
-
-class Harbour {
+class HarbourModel {
   final String harborId;
   final String harborName;
 
-  Harbour({
+  HarbourModel({
     required this.harborId,
     required this.harborName,
   });
 
-  factory Harbour.fromJson(Map<String, dynamic> json) {
-    return Harbour(
+  factory HarbourModel.fromJson(Map<String, dynamic> json) {
+    return HarbourModel(
       harborId: json['harbor_id'],
       harborName: json['harbor_name'],
     );

@@ -10,7 +10,7 @@ import '../widgets/ktext_form_field_widget.dart';
 class ReservationPage extends StatefulWidget {
   final String scheduleId;
 
-  ReservationPage({Key? key, required this.scheduleId}) : super(key: key);
+  const ReservationPage({Key? key, required this.scheduleId}) : super(key: key);
 
   @override
   State<ReservationPage> createState() => _ReservationPageState();
@@ -134,6 +134,13 @@ class _ReservationPageState extends State<ReservationPage> {
                       seats: seats)
                   .then((value) {
                 if (value.statusCode == 200) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text(
+                      "Berhasil Order",
+                      style: whiteTextStyle,
+                    ),
+                  ));
                   Navigator.push(
                       context,
                       MaterialPageRoute(

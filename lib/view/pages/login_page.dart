@@ -1,6 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:tipal/services/auth_services.dart';
 import 'package:tipal/theme.dart';
+import 'package:tipal/view/navbar_widget.dart';
 import 'package:tipal/view/pages/home_page.dart';
 import 'package:tipal/view/pages/register_page.dart';
 
@@ -83,7 +86,8 @@ class LoginPage extends StatelessWidget {
                             return Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
+                                    builder: (context) =>
+                                        const NavBarWidget()));
                           }).onError((error, stackTrace) =>
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(

@@ -1,13 +1,11 @@
-import 'dart:convert';
-
-class Schedule {
+class ScheduleModel {
   final String scheduleId;
   final String harborFrom;
   final String harborTo;
   final String scheduleTime;
   final String price;
 
-  Schedule({
+  ScheduleModel({
     required this.scheduleId,
     required this.harborFrom,
     required this.harborTo,
@@ -15,8 +13,8 @@ class Schedule {
     required this.price,
   });
 
-  factory Schedule.fromJson(Map<String, dynamic> json) {
-    return Schedule(
+  factory ScheduleModel.fromJson(Map<String, dynamic> json) {
+    return ScheduleModel(
       scheduleId: json['schedule_id'],
       harborFrom: json['harbor_from'],
       harborTo: json['harbor_to'],

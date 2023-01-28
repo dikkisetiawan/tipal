@@ -2,10 +2,10 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 
-import '../../models/Harbour.dart';
+import '../../models/harbour_model.dart';
 
 class KdropdownWidget extends StatefulWidget {
-  final List<Harbour> harbourList;
+  final List<HarbourModel> harbourList;
   final void Function(String? value)? onChanged;
   final String? selectedValue;
 

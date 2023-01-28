@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 
-import '../../models/Schedule.dart';
+import '../../models/schedule_model.dart';
 import '../../services/schedule_services.dart';
 import '../widgets/kchoice_chip_widget.dart';
 import 'reservation_page.dart';
@@ -49,7 +49,7 @@ class SearchResultPage extends StatelessWidget {
             ),
             preferredSize: const Size.fromHeight(52)),
       ),
-      body: FutureBuilder<List<Schedule>>(
+      body: FutureBuilder<List<ScheduleModel>>(
         future: ScheduleServices.fetchSchedule(fromStation, toStation),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

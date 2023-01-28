@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 import 'package:tipal/view/widgets/kdropdown_widget.dart';
 
-import '../../models/Harbour.dart';
-import '../../models/Schedule.dart';
+import '../../models/harbour_model.dart';
+import '../../models/schedule_model.dart';
 import '../../services/schedule_services.dart';
 import '../widgets/adult_child_widget.dart';
 import '../widgets/kelevated_button_widget.dart';
@@ -19,14 +19,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late String fromStation;
   late String toStation;
-  late Future<List<Harbour>> listHarbour;
-  late List<Schedule> listSchedule;
+  late Future<List<HarbourModel>> listHarbour;
+  late List<ScheduleModel> listSchedule;
 
   @override
   void initState() {
     super.initState();
     listHarbour = ScheduleServices.fetchHarbour();
-    listSchedule = <Schedule>[];
+    listSchedule = <ScheduleModel>[];
     fromStation = "";
     toStation = "";
   }
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        FutureBuilder<List<Harbour>>(
+        FutureBuilder<List<HarbourModel>>(
           future: listHarbour,
           builder: (context, snapshot) {
             if (snapshot.hasData) {

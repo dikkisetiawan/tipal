@@ -15,7 +15,6 @@ class AdultChildWidget extends StatefulWidget {
 class _AdultChildWidgetState extends State<AdultChildWidget> {
   @override
   Widget build(BuildContext context) {
-    print('logme rebuild $countAdult and $countChild');
     return Card(
       elevation: 10,
       shape: const RoundedRectangleBorder(
@@ -105,13 +104,13 @@ class _AdultChildWidgetState extends State<AdultChildWidget> {
         width: 24,
         height: 24,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(const Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
             color: Colors.transparent,
             border: Border.all(color: kSecondaryColor)),
         child: Center(
             child: Text(
           increment ? '+' : '-',
-          style: TextStyle(color: kSecondaryColor),
+          style: const TextStyle(color: kSecondaryColor),
         )),
       ),
     );
