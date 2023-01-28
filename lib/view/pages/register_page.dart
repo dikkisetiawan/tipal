@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/view/theme.dart';
-import 'package:tipal/view/pages/home_page.dart';
+
 import 'package:tipal/view/pages/login_page.dart';
 
 import '../../services/auth_services.dart';
@@ -11,7 +11,8 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({Key? key}) : super(key: key);
 
   final userNameTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  final password1TextController = TextEditingController();
+  final password2TextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,25 +76,49 @@ class RegisterPage extends StatelessWidget {
                     const SizedBox(height: defaultMargin / 2),
                     KtextFormFieldWidget(
                       title: 'Password',
-                      controller: passwordTextController,
+                      controller: password1TextController,
+                    ),
+                    const SizedBox(height: defaultMargin / 2),
+                    KtextFormFieldWidget(
+                      title: 'Repeat Password',
+                      controller: password2TextController,
                     ),
                     const SizedBox(height: defaultMargin),
                     KelevatedButtonWidget(
                         onPressed: () {
-                          AuthServices.register(
-                                  username: userNameTextController.text,
-                                  password: passwordTextController.text)
-                              .then((value) {
-                            return Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
-                          }).onError((error, stackTrace) =>
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text('Error: $error'),
-                                    backgroundColor: Colors.red.shade300,
-                                  )));
+                          if (password1TextController.text ==
+                                  password2TextController.text &&
+                              password1TextController.text.length > 2) {
+                            if (userNameTextController.text.isNotEmpty ||
+                                password1TextController.text.isNotEmpty) {
+                              AuthServices.register(
+                                      username: userNameTextController.text,
+                                      password: password1TextController.text)
+                                  .then((value) {
+                                return Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
+                              }).onError((error, stackTrace) =>
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text('Error: $error'),
+                                        backgroundColor: Colors.red.shade300,
+                                      )));
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: const Text(
+                                    'Username/Password tidak boleh kosong'),
+                                backgroundColor: Colors.red.shade300,
+                              ));
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: const Text('Password Harus Sama'),
+                              backgroundColor: Colors.red.shade300,
+                            ));
+                          }
                         },
                         title: 'Sign Up'),
                     const SizedBox(height: defaultMargin / 2),
