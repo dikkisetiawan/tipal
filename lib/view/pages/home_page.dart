@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Where do you \nwanna go?',
+                          'Bring your ticket \norder to the next level',
                           style: titleTextStyle.copyWith(
                               color: kWhiteColor, fontSize: 20),
                         ),
