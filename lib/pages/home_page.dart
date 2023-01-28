@@ -26,12 +26,13 @@ class HomePage extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(color: kWhiteColor),
+                decoration: const BoxDecoration(color: kWhiteColor),
               ),
             )
           ],
         ),
         ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Padding(
               padding: const EdgeInsets.only(
@@ -102,13 +103,65 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: defaultMargin),
               child: KelevatedButtonWidget(title: 'Search'),
             ),
+            const SizedBox(height: defaultMargin),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
               child: Text(
                 'Quick Trip',
                 style: titleTextStyle.copyWith(fontSize: 18, color: kGreyColor),
               ),
-            )
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 160,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Card(
+                      color: kPrimaryColor,
+                      margin: const EdgeInsets.only(
+                          top: defaultMargin / 2, left: defaultMargin),
+                      elevation: 10,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(defaultMargin / 4))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(defaultMargin),
+                        child: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Surabaya - Merak',
+                                  style: whiteTextStyle.copyWith(fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: defaultMargin / 2,
+                                ),
+                                Text(
+                                  'Start Rp 230.000',
+                                  style: whiteTextStyle.copyWith(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12),
+                                )
+                              ],
+                            ),
+                            const SizedBox(width: defaultMargin * 2),
+                            const Icon(
+                              Icons.navigation,
+                              color: kWhiteColor,
+                              size: 24,
+                            )
+                          ],
+                        ),
+                      ));
+                },
+              ),
+            ),
+            const SizedBox(height: defaultMargin * 8),
           ],
         )
       ]),
