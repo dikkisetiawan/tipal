@@ -9,12 +9,26 @@ class AuthServices {
 
     var decodedResponse = jsonDecode(response.body)['status'];
 
-    print('logme $decodedResponse');
-
     if (decodedResponse == true) {
       return true;
     } else {
       throw Exception('Failed to login');
+    }
+  }
+
+  static Future<bool> register(
+      {required String username, required String password}) async {
+    var body = {'username': username, 'password': password};
+
+    final response = await http
+        .post(Uri.parse('https://tipal.my.id/auth/signup.php'), body: body);
+
+    var decodedResponse = jsonDecode(response.body)['status'];
+
+    if (decodedResponse == true) {
+      return true;
+    } else {
+      throw Exception('Failed to register');
     }
   }
 }

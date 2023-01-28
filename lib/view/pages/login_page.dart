@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:tipal/services/auth_services.dart';
 import 'package:tipal/theme.dart';
 import 'package:tipal/view/pages/home_page.dart';
+import 'package:tipal/view/pages/register_page.dart';
 
 import '../widgets/kelevated_button_widget.dart';
 import '../widgets/ktext_form_field_widget.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final userNameTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +68,15 @@ class LoginPage extends StatelessWidget {
                       style: titleTextStyle,
                     ),
                     const SizedBox(height: defaultMargin),
-                    const KtextFormFieldWidget(),
+                    KtextFormFieldWidget(controller: userNameTextController),
                     const SizedBox(height: defaultMargin / 2),
-                    const KtextFormFieldWidget(),
+                    KtextFormFieldWidget(controller: passwordTextController),
                     const SizedBox(height: defaultMargin),
                     KelevatedButtonWidget(
                         onPressed: () {
                           AuthServices.login(
-                                  username: 'faizas', password: '123456')
+                                  username: userNameTextController.text,
+                                  password: passwordTextController.text)
                               .then((value) {
                             return Navigator.pushReplacement(
                                 context,
@@ -104,7 +109,12 @@ class LoginPage extends StatelessWidget {
                           style: greyTextStyle,
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterPage()));
+                            },
                             child: const Text(
                               'Sign Up',
                               style: buttonTextStyle,

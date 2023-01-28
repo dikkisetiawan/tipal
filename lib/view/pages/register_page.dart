@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 import 'package:tipal/view/pages/home_page.dart';
+import 'package:tipal/view/pages/login_page.dart';
 
+import '../../services/auth_services.dart';
 import '../widgets/kelevated_button_widget.dart';
 import '../widgets/ktext_form_field_widget.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  RegisterPage({Key? key}) : super(key: key);
+
+  final userNameTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +68,31 @@ class RegisterPage extends StatelessWidget {
                       style: titleTextStyle,
                     ),
                     const SizedBox(height: defaultMargin),
-                    const KtextFormFieldWidget(),
+                    KtextFormFieldWidget(
+                      controller: userNameTextController,
+                    ),
                     const SizedBox(height: defaultMargin / 2),
-                    const KtextFormFieldWidget(),
+                    KtextFormFieldWidget(
+                      controller: passwordTextController,
+                    ),
                     const SizedBox(height: defaultMargin),
                     KelevatedButtonWidget(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
+                          AuthServices.register(
+                                  username: userNameTextController.text,
+                                  password: passwordTextController.text)
+                              .then((value) {
+                            return Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                            ;
+                          }).onError((error, stackTrace) =>
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text('Error: $error'),
+                                    backgroundColor: Colors.red.shade300,
+                                  )));
                         },
                         title: 'Sign Up'),
                     const SizedBox(height: defaultMargin / 2),
@@ -90,13 +109,18 @@ class RegisterPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Don’t have account yet?',
+                          'Already have an account?',
                           style: greyTextStyle,
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
+                            },
                             child: const Text(
-                              'Sign Up',
+                              'Sign In',
                               style: buttonTextStyle,
                             ))
                       ],
