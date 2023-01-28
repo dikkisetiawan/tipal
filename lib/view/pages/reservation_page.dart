@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tipal/view/pages/my_tickets_page.dart';
 import 'package:tipal/view/widgets/adult_child_widget.dart';
+import 'package:tipal/view/widgets/kelevated_button_widget.dart';
 
+import '../../services/schedule_services.dart';
 import '../../theme.dart';
 import '../widgets/ktext_form_field_widget.dart';
 
@@ -118,7 +121,35 @@ class _ReservationPageState extends State<ReservationPage> {
                     });
                   })),
           const SizedBox(height: defaultMargin),
-          const AdultChildWidget()
+          const AdultChildWidget(),
+          const SizedBox(
+            height: defaultMargin,
+          ),
+          KelevatedButtonWidget(
+            title: 'Reserve Now',
+            onPressed: () {
+              ScheduleServices.placeOrder(
+                      name: fullNameTextController.text,
+                      scheduleId: widget.scheduleId,
+                      seats: seats)
+                  .then((value) {
+                if (value.statusCode == 200) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyTicketsPage()));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.red.shade300,
+                    content: const Text(
+                      "Gagal, Ada Kesalahan",
+                      style: whiteTextStyle,
+                    ),
+                  ));
+                }
+              });
+            },
+          )
         ],
       )
     ]));

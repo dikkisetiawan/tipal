@@ -138,8 +138,10 @@ class SearchResultPage extends StatelessWidget {
               style: whiteTextStyle,
             ));
           }
-          return const CircularProgressIndicator(
-            color: kSecondaryColor,
+          return const Center(
+            child: CircularProgressIndicator(
+              color: kSecondaryColor,
+            ),
           );
         },
       ),
