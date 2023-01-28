@@ -82,7 +82,6 @@ class LoginPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const HomePage()));
-                            ;
                           }).onError((error, stackTrace) =>
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(

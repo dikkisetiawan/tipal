@@ -2,27 +2,22 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tipal/theme.dart';
 
+import '../../models/Harbour.dart';
+
 class KdropdownWidget extends StatefulWidget {
-  KdropdownWidget({Key? key}) : super(key: key);
+  final List<Harbour> harbourList;
+  final void Function(String? value)? onChanged;
+  final String? selectedValue;
+
+  const KdropdownWidget(
+      {Key? key, required this.harbourList, this.onChanged, this.selectedValue})
+      : super(key: key);
 
   @override
   State<KdropdownWidget> createState() => _KdropdownWidgetState();
 }
 
 class _KdropdownWidgetState extends State<KdropdownWidget> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-
-  String? selectedValue;
-
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
@@ -47,22 +42,18 @@ class _KdropdownWidgetState extends State<KdropdownWidget> {
             ),
           ],
         ),
-        items: items
+        items: widget.harbourList
             .map((item) => DropdownMenuItem<String>(
-                  value: item,
+                  value: item.harborId,
                   child: Text(
-                    item,
+                    item.harborName,
                     style: blackTextStyle,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ))
             .toList(),
-        value: selectedValue,
-        onChanged: (value) {
-          setState(() {
-            selectedValue = value as String;
-          });
-        },
+        value: widget.selectedValue,
+        onChanged: widget.onChanged,
         icon: const Icon(
           Icons.arrow_forward_ios_outlined,
         ),

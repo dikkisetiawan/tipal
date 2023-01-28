@@ -86,7 +86,7 @@ class _HomePageOldState extends State<HomePageOld> {
                       ],
                     ),
                     const Padding(padding: EdgeInsets.only(top: 24)),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

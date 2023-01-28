@@ -13,8 +13,8 @@ class TicketsPage extends StatefulWidget {
 }
 
 Future<List<Ticket>> fetchTicket(String userId) async {
-  final response = await http.get(Uri.parse(
-      'https://tipalfais.000webhostapp.com/api_get_order.php'));
+  final response =
+      await http.get(Uri.parse('https://tipal.my.id/api_get_order.php'));
 
   if (response.statusCode == 200) {
     var decodedResponse = jsonDecode(response.body);

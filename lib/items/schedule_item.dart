@@ -49,7 +49,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ReservationPage(
+                        builder: (context) => ReservationPageOld(
                             scheduleId: this.schedule.scheduleId)));
               },
               child: Text("Choose"))

@@ -3,15 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ReservationPage extends StatefulWidget {
+class ReservationPageOld extends StatefulWidget {
   String scheduleId;
-  ReservationPage({Key? key, required this.scheduleId}) : super(key: key);
+  ReservationPageOld({Key? key, required this.scheduleId}) : super(key: key);
 
   @override
-  _ReservationPageState createState() => _ReservationPageState(this.scheduleId);
+  _ReservationPageOldState createState() =>
+      _ReservationPageOldState(this.scheduleId);
 }
 
-class _ReservationPageState extends State<ReservationPage> {
+class _ReservationPageOldState extends State<ReservationPageOld> {
   String scheduleId;
   final nameTextController = TextEditingController();
   final childTextController = TextEditingController();
@@ -19,7 +20,7 @@ class _ReservationPageState extends State<ReservationPage> {
 
   String seats = "";
 
-  _ReservationPageState(this.scheduleId);
+  _ReservationPageOldState(this.scheduleId);
 
   Future<http.Response> placeOrder() {
     return http.post(
@@ -32,7 +33,7 @@ class _ReservationPageState extends State<ReservationPage> {
         'username': nameTextController.text,
         'qty_adult': adultTextController.text,
         'qty_child': childTextController.text,
-        'seat':seats
+        'seat': seats
       }),
     );
   }
@@ -118,12 +119,10 @@ class _ReservationPageState extends State<ReservationPage> {
                     placeOrder().then((value) {
                       if (value.statusCode == 200) {
                         Navigator.pop(context);
-                      }else{
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Gagal, Ada Kesalahan"),
-                          )
-                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Gagal, Ada Kesalahan"),
+                        ));
                       }
                     });
                   },
