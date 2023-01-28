@@ -135,7 +135,7 @@ class SearchResultPage extends StatelessWidget {
             return const Center(
                 child: Text(
               'Failed to load Schedule data',
-              style: whiteTextStyle,
+              style: blackTextStyle,
             ));
           }
           return const Center(
