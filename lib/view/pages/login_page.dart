@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tipal/services/auth_services.dart';
 import 'package:tipal/theme.dart';
 import 'package:tipal/view/pages/home_page.dart';
 
@@ -69,11 +70,20 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: defaultMargin),
                     KelevatedButtonWidget(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
+                          AuthServices.login(
+                                  username: 'faizas', password: '123456')
+                              .then((value) {
+                            return Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                            ;
+                          }).onError((error, stackTrace) =>
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text('Error: $error'),
+                                    backgroundColor: Colors.red.shade300,
+                                  )));
                         },
                         title: 'Sign In'),
                     const SizedBox(height: defaultMargin / 2),
